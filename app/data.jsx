@@ -22,4 +22,6 @@ const animes = [
     { id: 20, title: 'Attack on Titan: The Final Season', image: '/attack_on_titan_final.jpg', link: '/anime/attack-on-titan-final' },
 ];
 
+
+
 export default animes;

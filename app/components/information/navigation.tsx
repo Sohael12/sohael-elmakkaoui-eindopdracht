@@ -22,7 +22,7 @@ export default function Navbar() {
                     <div className="hidden md:flex space-x-6">
                         {[
                             { name: 'Home', href: '/' },
-                            { name: 'Anime Series', href: '/serie' },
+                            { name: 'Anime Series', href: '/anime' },
                             { name: 'Manga', href: '/manga' },
                             { name: 'Characters', href: '/characters' },
                             { name: 'Contact', href: '/contact' },

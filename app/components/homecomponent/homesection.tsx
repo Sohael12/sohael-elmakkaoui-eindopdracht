@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Navbar from "@/app/components/information/navigation";
+import animes from "@/app/data";
 
 export default function Homesection() {
     return (
@@ -68,7 +69,6 @@ export default function Homesection() {
                 </section>
             </main>
 
-            <Footer />
         </div>
     );
 }

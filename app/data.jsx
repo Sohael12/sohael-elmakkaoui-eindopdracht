@@ -16,5 +16,4 @@ const animes = [
     { id: 18, title: 'Bleach', image: 'https://abblbyqaqa2f0hfu.public.blob.vercel-storage.com/bleach-18lISw6FjLFaSuOvjbqfe0zGfc75Cw.jpg', video: 'https://www.w3schools.com/html/movie.mp4' },
     { id: 19, title: 'One Punch Man', image: 'https://abblbyqaqa2f0hfu.public.blob.vercel-storage.com/one-KtsgwSgzQSWZjj8vCuK8sYamlcEGLG.jpg', video: 'https://www.w3schools.com/html/mov_bbb.mp4' },
 ];
-
 export default animes;

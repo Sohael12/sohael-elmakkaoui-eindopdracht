@@ -1,8 +1,12 @@
+'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import Navbar from "@/app/components/information/navigation";
 import animes from "@/app/data";
 
 export default function Homesection() {
+    const router = useRouter(); // Initialiseer router
+
     return (
         <div className="bg-gradient-to-b from-gray-900 to-black text-white min-h-screen">
             <Navbar />
@@ -22,7 +26,10 @@ export default function Homesection() {
                             Experience the epic continuation of Tanjiro's journey in the latest season of Demon Slayer.
                             Watch as new challenges and enemies emerge in this thrilling saga.
                         </p>
-                        <button className="mt-6 px-8 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-300">
+                        <button
+                            className="mt-6 px-8 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-300"
+                            onClick={() => router.push('/anime/1')} // Verwijs naar een specifieke anime ID
+                        >
                             Watch Now
                         </button>
                     </div>
@@ -49,26 +56,28 @@ export default function Homesection() {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {animes.map((anime) => (
                                 <div key={anime.id} className="bg-gray-700 rounded-lg shadow-lg p-4 hover:scale-105 transform transition">
-                                    {/* Image component with increased size */}
+                                    {/* Image component */}
                                     <Image
                                         src={anime.image}
                                         alt={anime.title}
-                                        className="w-full h-52 object-cover rounded-md"  // Adjust the height to make the image larger
-                                        width={500}  // Increased width for larger image
-                                        height={200}  // Increased height for a larger image
+                                        className="w-full h-52 object-cover rounded-md"
+                                        width={500}
+                                        height={200}
                                     />
                                     <h3 className="text-white font-semibold mt-4">{anime.title}</h3>
                                     <p className="text-gray-300 mt-2">⭐ 4.5 - 2025</p>
-                                    <a href={anime.link} className="text-yellow-500 hover:underline mt-4 inline-block">
+                                    <button
+                                        onClick={() => router.push(`/anime/${anime.id}`)} // Dynamische navigatie naar anime-detailpagina
+                                        className="text-yellow-500 hover:underline mt-4 inline-block"
+                                    >
                                         Watch Now
-                                    </a>
+                                    </button>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </section>
             </main>
-
         </div>
     );
 }

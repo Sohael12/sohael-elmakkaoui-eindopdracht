@@ -49,13 +49,13 @@ export default function Homesection() {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {animes.map((anime) => (
                                 <div key={anime.id} className="bg-gray-700 rounded-lg shadow-lg p-4 hover:scale-105 transform transition">
-                                    {/* Replace <img> with <Image> */}
+                                    {/* Image component with increased size */}
                                     <Image
                                         src={anime.image}
                                         alt={anime.title}
-                                        className="w-full h-40 object-cover rounded-md"
-                                        width={400} // You can set the width here
-                                        height={160} // You can set the height here
+                                        className="w-full h-52 object-cover rounded-md"  // Adjust the height to make the image larger
+                                        width={500}  // Increased width for larger image
+                                        height={200}  // Increased height for a larger image
                                     />
                                     <h3 className="text-white font-semibold mt-4">{anime.title}</h3>
                                     <p className="text-gray-300 mt-2">⭐ 4.5 - 2025</p>

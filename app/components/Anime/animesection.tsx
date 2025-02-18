@@ -1,14 +1,33 @@
-'use client';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+"use client"
 
-const AnimeSection = ({ title, animes }) => {
+import type React from "react"
+
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { useEffect, useRef } from "react"
+
+interface Anime {
+    id: number
+    title: string
+    image: string
+    highlightVideo: string
+    fullEpisodeVideo: string
+    rating: number
+    genre: string
+    description: string
+}
+
+interface AnimeSectionProps {
+    title: string
+    animes: Anime[]
+}
+
+const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animes }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="mb-12"
         >
             <h2 className="text-3xl font-semibold text-[#FFD700] mb-6">{title}</h2>
@@ -25,42 +44,45 @@ const AnimeSection = ({ title, animes }) => {
 
                         <div className="mt-3 text-center">
                             <Link href={`/anime/${anime.id}`} className="block">
-                                <span className="text-white text-lg font-semibold hover:text-[#FFD700] transition">
-                                    {anime.title}
-                                </span>
+                                <span className="text-white text-lg font-semibold hover:text-[#FFD700] transition">{anime.title}</span>
                             </Link>
                         </div>
                     </motion.div>
                 ))}
             </div>
         </motion.div>
-    );
-};
+    )
+}
 
-const VideoPlayer = ({ anime }) => {
-    const videoRef = useRef(null);
+interface VideoPlayerProps {
+    anime: Anime
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ anime }) => {
+    const videoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
-        const video = videoRef.current;
+        const video = videoRef.current
         if (video) {
-            video.addEventListener('loadeddata', () => {
-                video.currentTime = 0.1;
-            });
+            video.addEventListener("loadeddata", () => {
+                video.currentTime = 0.1
+            })
         }
-    }, []);
+    }, [])
 
     return (
         <video
             ref={videoRef}
-            src={anime.video}
+            src={anime.highlightVideo}
             className="w-full h-64 object-cover rounded-lg shadow-lg"
             poster={anime.image}
             muted
             playsInline
-            onMouseEnter={(e) => e.target.play()}
-            onMouseLeave={(e) => e.target.pause()}
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => e.currentTarget.pause()}
         />
-    );
-};
+    )
+}
 
-export default AnimeSection;
+export default AnimeSection
+

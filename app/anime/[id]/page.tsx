@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import animes from "@/app/data"
@@ -8,11 +9,12 @@ import Footer from "@/app/components/information/footer"
 interface Anime {
     id: number
     title: string
-    video: string
     image: string
-    description?: string
-    rating?: number
-    genre?: string
+    highlightVideo: string
+    fullEpisodeVideo: string
+    description: string
+    rating: number
+    genre: string
     related?: string[]
 }
 
@@ -40,7 +42,7 @@ const AnimeDetail = () => {
                 <h1 className="text-4xl font-bold">{anime.title}</h1>
                 <div className="mt-6">
                     <video
-                        src={anime.video}
+                        src={anime.fullEpisodeVideo}
                         className="w-full h-96 object-cover rounded-lg shadow-lg"
                         poster={anime.image}
                         controls
@@ -62,8 +64,8 @@ const AnimeDetail = () => {
                     />
                 </div>
                 <div className="mt-6 flex justify-between items-center bg-gray-900 p-4 rounded-lg">
-                    <p>⭐ {anime.rating || "N/A"}/10</p>
-                    <p>{anime.genre || "Genre onbekend"}</p>
+                    <p>⭐ {anime.rating.toFixed(1)}/10</p>
+                    <p>{anime.genre}</p>
                     <select className="bg-gray-800 p-2 rounded-lg">
                         <option>English (Sub)</option>
                         <option>Japanese (Sub)</option>

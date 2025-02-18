@@ -15,7 +15,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
-                        <Link href="/" className="text-white text-3xl font-bold tracking-wide">
+                        <Link href="/public" className="text-white text-3xl font-bold tracking-wide">
                             AnimeHub
                         </Link>
                     </motion.div>

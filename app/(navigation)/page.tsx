@@ -1,6 +1,6 @@
-import Navbar from "@/app/components/information/navigation";
-import Footer from "@/app/components/information/footer";
-import Homesection from "@/app/components/homecomponent/homesection";
+import Navbar from "@/app/components/navigation";
+import Footer from "@/app/components/footer";
+import Homesection from "@/app/components/homesection";
 
 export default function Homepage() {
     return (

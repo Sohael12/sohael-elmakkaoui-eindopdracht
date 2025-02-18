@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import animes from "@/app/data"
-import Navbar from "@/app/components/information/navigation"
-import Footer from "@/app/components/information/footer"
+import Navbar from "@/app/components/navigation"
+import Footer from "@/app/components/footer"
 
 interface Anime {
     id: number

@@ -20,16 +20,16 @@ interface Anime {
 
 const AnimeDetail = () => {
     const params = useParams()
-    const id = params?.id
-
     const [anime, setAnime] = useState<Anime | null>(null)
 
     useEffect(() => {
-        if (!id) return
-        const animeId = Array.isArray(id) ? id[0] : id
-        const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10))
-        setAnime(selectedAnime || null)
-    }, [id])
+        const id = params?.id
+        if (id) {
+            const animeId = Array.isArray(id) ? id[0] : id
+            const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10))
+            setAnime(selectedAnime || null)
+        }
+    }, [params])
 
     if (!anime) {
         return <div className="text-white text-center py-20">Anime niet gevonden!</div>
@@ -54,7 +54,7 @@ const AnimeDetail = () => {
                     <button className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700">Episode 3</button>
                 </div>
                 <div className="mt-6 bg-gray-900 p-4 rounded-lg">
-                    <p className="text-gray-300">{anime.description || "Geen beschrijving beschikbaar."}</p>
+                    <p className="text-gray-300">{anime.description}</p>
                 </div>
                 <div className="mt-6">
                     <input

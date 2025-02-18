@@ -1,20 +1,21 @@
 "use client";
-import {useEffect, useState} from "react";
-import {useParams} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import animes from "@/app/data";
 import Navbar from "@/app/components/information/navigation";
 import Footer from "@/app/components/information/footer";
 
-
 const AnimeDetail = () => {
     const params = useParams();
-    const {id} = params;
+    const { id } = params;
 
     const [anime, setAnime] = useState(null);
 
     useEffect(() => {
-        const selectedAnime = animes.find((a) => a.id === parseInt(id));
-        setAnime(selectedAnime);
+        if (!id) return;
+        const animeId = Array.isArray(id) ? id[0] : id;
+        const selectedAnime = animes.find((a) => a.id === parseInt(animeId, 10));
+        setAnime(selectedAnime || null);
     }, [id]);
 
     if (!anime) {
@@ -23,12 +24,9 @@ const AnimeDetail = () => {
 
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen">
-            <Navbar/>
-
+            <Navbar />
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <h1 className="text-4xl font-bold">{anime.title}</h1>
-
-                {/* Video */}
                 <div className="mt-6">
                     <video
                         src={anime.video}
@@ -37,20 +35,14 @@ const AnimeDetail = () => {
                         controls
                     />
                 </div>
-
-                {/* Afleveringen knoppen */}
                 <div className="mt-4 flex gap-2">
                     <button className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700">Episode 1</button>
                     <button className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700">Episode 2</button>
                     <button className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700">Episode 3</button>
                 </div>
-
-                {/* Beschrijving en details */}
                 <div className="mt-6 bg-gray-900 p-4 rounded-lg">
                     <p className="text-gray-300">{anime.description || "Geen beschrijving beschikbaar."}</p>
                 </div>
-
-                {/* Reacties */}
                 <div className="mt-6">
                     <input
                         type="text"
@@ -58,8 +50,6 @@ const AnimeDetail = () => {
                         className="w-full bg-gray-800 text-white p-2 rounded-lg"
                     />
                 </div>
-
-                {/* Extra details */}
                 <div className="mt-6 flex justify-between items-center bg-gray-900 p-4 rounded-lg">
                     <p>⭐ {anime.rating || "N/A"}/10</p>
                     <p>{anime.genre || "Genre onbekend"}</p>
@@ -69,8 +59,6 @@ const AnimeDetail = () => {
                         <option>Japanese (Dub)</option>
                     </select>
                 </div>
-
-                {/* Gerelateerde anime */}
                 {anime.related && anime.related.length > 0 && (
                     <div className="mt-6">
                         <h2 className="text-2xl font-bold">Gerelateerde Anime</h2>
@@ -84,9 +72,7 @@ const AnimeDetail = () => {
                     </div>
                 )}
             </div>
-
-            {/* ✅ Footer */}
-            <Footer/>
+            <Footer />
         </div>
     );
 };

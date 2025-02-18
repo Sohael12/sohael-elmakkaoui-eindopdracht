@@ -1,25 +1,36 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import animes from "@/app/data";
-import Navbar from "@/app/components/information/navigation";
-import Footer from "@/app/components/information/footer";
+"use client"
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
+import animes from "@/app/data"
+import Navbar from "@/app/components/information/navigation"
+import Footer from "@/app/components/information/footer"
+
+interface Anime {
+    id: number
+    title: string
+    video: string
+    image: string
+    description?: string
+    rating?: number
+    genre?: string
+    related?: string[]
+}
 
 const AnimeDetail = () => {
-    const params = useParams();
-    const { id } = params;
+    const params = useParams()
+    const id = params?.id
 
-    const [anime, setAnime] = useState(null);
+    const [anime, setAnime] = useState<Anime | null>(null)
 
     useEffect(() => {
-        if (!id) return;
-        const animeId = Array.isArray(id) ? id[0] : id;
-        const selectedAnime = animes.find((a) => a.id === parseInt(animeId, 10));
-        setAnime(selectedAnime || null);
-    }, [id]);
+        if (!id) return
+        const animeId = Array.isArray(id) ? id[0] : id
+        const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10))
+        setAnime(selectedAnime || null)
+    }, [id])
 
     if (!anime) {
-        return <div className="text-white text-center py-20">Anime niet gevonden!</div>;
+        return <div className="text-white text-center py-20">Anime niet gevonden!</div>
     }
 
     return (
@@ -74,7 +85,8 @@ const AnimeDetail = () => {
             </div>
             <Footer />
         </div>
-    );
-};
+    )
+}
 
-export default AnimeDetail;
+export default AnimeDetail
+

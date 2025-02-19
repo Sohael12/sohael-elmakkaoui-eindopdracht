@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'; // Import useRouter
-import Navbar from "@/app/components/navigation";
-import animes from "@/app/data";
+import Navbar from "@/src/components/navigation";
+import animes from "@/src/lib/data";
 
 export default function Homesection() {
     const router = useRouter(); // Initialiseer router

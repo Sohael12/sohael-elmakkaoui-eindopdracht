@@ -7,7 +7,7 @@ const animes = [
         highlightVideo:
             "https://abblbyqaqa2f0hfu.public.blob.vercel-storage.com/videos/%5BSubsPlease%5D%20Saikyou%20Tank%20no%20Meikyuu%20Kouryaku%20-%2001%20(1080p)%20%5B38326098%5D.mkv-lfu7DysezzV7L27whqZ476RvfMPYHR.mp4",
         fullEpisodeVideo:
-            "https://abblbyqaqa2f0hfu.public.blob.vercel-storage.com/videos/%5BSubsPlease%5D%20Saikyou%20Tank%20no%20Meikyuu%20Kouryaku%20-%2001%20(1080p)%20%5B38326098%5D.mkv-lfu7DysezzV7L27whqZ476RvfMPYHR.mp4",
+            "ttps://abhblbyqaqa2f0hfu.public.blob.vercel-storage.com/videos/%5BSubsPlease%5D%20Saikyou%20Tank%20no%20Meikyuu%20Kouryaku%20-%2001%20(1080p)%20%5B38326098%5D.mkv-lfu7DysezzV7L27whqZ476RvfMPYHR.mp4",
         rating: 8.7,
         genre: "Action, Fantasy",
         description:

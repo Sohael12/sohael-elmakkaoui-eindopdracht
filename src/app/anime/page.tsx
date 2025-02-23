@@ -1,9 +1,10 @@
 'use client';
 import {motion} from 'framer-motion';
-import AnimeSection from "@/app/components/animesection";
-import animes from "@/app/data";
-import Footer from "@/app/components/footer";
-import Navbar from "@/app/components/navigation";
+import AnimeSection from "@/src/components/animesection";
+import animes from "@/src/lib/data";
+import Navbar from "@/src/components/navigation";
+import Footer from "@/src/components/footer";
+
 
 export default function seriePage() {
     return (

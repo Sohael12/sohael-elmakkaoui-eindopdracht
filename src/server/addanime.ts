@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import animes from "@/src/lib/data";
-import { db } from "@db/";
 
 export async function addAnime(formData: FormData) {
     try {
@@ -11,9 +10,6 @@ export async function addAnime(formData: FormData) {
         const image = formData.get("image")?.toString().trim();
         const highlightVideo = formData.get("highlightVideo")?.toString().trim();
 
-        if (!title) {
-            throw new Error("Titel mag niet leeg zijn!");
-        }
 
         await db.insert(animes).values({
             title,

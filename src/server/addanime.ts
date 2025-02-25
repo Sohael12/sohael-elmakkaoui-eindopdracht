@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import animes from "@/src/lib/data";
+import {db} from "@/src/db/client";
 
 export async function addAnime(formData: FormData) {
     try {

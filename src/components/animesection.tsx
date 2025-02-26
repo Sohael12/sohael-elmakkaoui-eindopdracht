@@ -6,14 +6,14 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export interface Anime {
-    id: string; // Verander dit naar `string` voor `uuid`
+    id: string; // UUID is een string
     title: string;
-    image: string;
-    highlightVideo: string;
-    fullEpisodeVideo: string;
-    rating: number;
-    genre: string;
-    description: string;
+    image: string | null; // Image kan null zijn
+    highlightVideo: string | null; // HighlightVideo kan null zijn
+    fullEpisodeVideo: string | null; // FullEpisodeVideo kan null zijn
+    rating: number | null; // Rating is een number of null
+    genre: string | null; // Genre kan null zijn
+    description: string | null; // Description kan null zijn
 }
 
 export interface AnimeSectionProps {
@@ -74,9 +74,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ anime }) => {
     return (
         <video
             ref={videoRef}
-            src={anime.highlightVideo}
+            src={anime.highlightVideo || ""}
             className="w-full h-64 object-cover rounded-lg shadow-lg"
-            poster={anime.image}
+            poster={anime.image || "/path/to/default/image.png"}
             muted
             playsInline
             onMouseEnter={(e) => e.currentTarget.play()}

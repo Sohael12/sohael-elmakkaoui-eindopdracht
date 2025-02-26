@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export interface Anime {
-    id: number;
+    id: string; // Verander dit naar `string` voor `uuid`
     title: string;
     image: string;
     highlightVideo: string;
@@ -43,9 +43,9 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animes }) => {
 
                         <div className="mt-3 text-center">
                             <Link href={`/anime/${anime.id}`} className="block">
-                <span className="text-white text-lg font-semibold hover:text-[#FFD700] transition">
-                  {anime.title}
-                </span>
+                                <span className="text-white text-lg font-semibold hover:text-[#FFD700] transition">
+                                    {anime.title}
+                                </span>
                             </Link>
                         </div>
                     </motion.div>

@@ -1,30 +1,25 @@
-'use client';
+import { db } from "@/db/client";
+import { animes } from "@/db/anime";
+import Navbar from "@/components/navigation";
+import Footer from "@/components/footer";
+import AnimeSection from "@/components/animesection";
 
-import { motion } from 'framer-motion';
-import Navbar from '@/components/navigation';
-import Footer from '@/components/footer';
-import AnimeSection from '@/components/animesection';
-import animes from '@/lib/data'; // Zorg dat de data voldoet aan de Anime interface
+export default async function AnimePage() {
+    // Haal anime-data op uit de database
+    const data = await db.select().from(animes);
 
-export default function SeriePage() {
+    // Transformeer de data om de `rating` naar een number te converteren
+    const transformedData = data.map((anime) => ({
+        ...anime,
+        rating: anime.rating ? parseFloat(anime.rating) : null, // Converteer rating naar number
+    }));
+
     return (
         <div className="bg-gray-900 min-h-screen text-white">
             <Navbar />
-
-            <main className="pt-20 px-4 md:px-8">
-                <motion.h2
-                    className="text-center text-4xl font-bold text-yellow-400 mb-8"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    All Anime
-                </motion.h2>
-
-                {/* Nu geven we ook de title-prop door */}
-                <AnimeSection title="All Anime" animes={animes} />
-            </main>
-
+            <div className="mt-5">
+                <AnimeSection title="Populaire Animes" animes={transformedData} />
+            </div>
             <Footer />
         </div>
     );

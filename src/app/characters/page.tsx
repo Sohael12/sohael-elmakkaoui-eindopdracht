@@ -1,6 +1,6 @@
+import Navbar from "@/components/navigation"
+import Footer from "@/components/footer"
 import CharacterSection from "@/components/charactersection";
-import Navbar from "@/components/navigation";
-import Footer from "@/components/footer";
 
 export default function CharacterPage() {
     return (
@@ -11,8 +11,8 @@ export default function CharacterPage() {
                 <CharacterSection title="Popular Characters" />
             </main>
 
-            {/* Footer */}
             <Footer />
         </div>
     )
 }
+

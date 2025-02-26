@@ -6,22 +6,21 @@ import Navbar from "@/components/navigation";
 import Footer from "@/components/footer";
 import animes from "@/lib/data";
 
-
 const AnimeDetail = () => {
-    const params = useParams();
-    const [anime, setAnime] = useState(null);
+    const params = useParams(); // Access the URL parameters
+    const [anime, setAnime] = useState<any>(null); // State to store the anime details
 
     useEffect(() => {
-        const id = params?.id;
+        const id = params?.id; // Extract anime ID from URL parameters
         if (id) {
-            const animeId = Array.isArray(id) ? id[0] : id;
-            const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10));
-            setAnime(selectedAnime || null);
+            const animeId = Array.isArray(id) ? id[0] : id; // Ensure `id` is a string, not an array
+            const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10)); // Find anime by ID
+            setAnime(selectedAnime || null); // Update state with anime details or null if not found
         }
     }, [params]);
 
     if (!anime) {
-        return <div className="text-white text-center py-20">Anime niet gevonden!</div>;
+        return <div className="text-white text-center py-20">Anime niet gevonden!</div>; // Show a message if anime is not found
     }
 
     return (
@@ -39,9 +38,14 @@ const AnimeDetail = () => {
                     <div className="bg-gray-900 p-4 rounded-lg lg:w-1/3">
                         <h2 className="text-xl font-semibold mb-3">Afleveringen</h2>
                         <ul className="space-y-2">
-                            <li className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 cursor-pointer">Aflevering 1</li>
-                            <li className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 cursor-pointer">Aflevering 2</li>
-                            <li className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 cursor-pointer">Aflevering 3</li>
+                            {anime.episodes.map((episode: any, index: number) => (
+                                <li
+                                    key={index}
+                                    className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 cursor-pointer"
+                                >
+                                    {`Aflevering ${index + 1}`}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

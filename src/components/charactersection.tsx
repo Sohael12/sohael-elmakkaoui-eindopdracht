@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-import { Search, Heart } from "lucide-react"
+import { Search } from "lucide-react"
 
 interface Character {
   mal_id: number
@@ -38,7 +38,8 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
-        const response = await fetch("/api/characters")
+        // Directly fetch from Jikan API instead of going through a Next.js API route
+        const response = await fetch("https://api.jikan.moe/v4/characters")
         const data = await response.json()
         setCharacters(data.data)
       } catch (err) {
@@ -54,7 +55,8 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
   const filteredCharacters = characters.filter((character) => {
     const matchesSearch =
         character.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        character.nicknames.some((nickname) => nickname.toLowerCase().includes(searchTerm.toLowerCase()))
+        (character.nicknames &&
+            character.nicknames.some((nickname) => nickname.toLowerCase().includes(searchTerm.toLowerCase())))
 
     if (selectedFilter === "all") return matchesSearch
     if (selectedFilter === "popular") return matchesSearch && character.favorites > 1000
@@ -150,3 +152,4 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
       </div>
   )
 }
+

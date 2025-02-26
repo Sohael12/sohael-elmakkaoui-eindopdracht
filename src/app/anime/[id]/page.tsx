@@ -1,8 +1,8 @@
 "use client";
 
-import type React, {FC} from "react";
-import AnimeDetail from "@/src/components/animedetail";
-
+import type { FC } from "react";
+import React from "react"; // Only if needed
+import AnimeDetail from "@/components/animedetail";
 
 const Animepagesbyid: FC<AnimeSectionProps> = ({ title }) => {
     return <AnimeDetail />;

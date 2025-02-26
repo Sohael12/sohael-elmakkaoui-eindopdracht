@@ -1,5 +1,5 @@
-import Navbar from "@/src/components/navigation";
-import Footer from "@/src/components/footer";
+import Navbar from "@/components/navigation";
+import Footer from "@/components/footer";
 
 export default function mangapage() {
     return (

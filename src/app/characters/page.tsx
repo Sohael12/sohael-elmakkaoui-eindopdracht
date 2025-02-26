@@ -1,6 +1,6 @@
-import Navbar from "@/src/components/navigation";
-import Footer from "@/src/components/footer";
-import CharacterSection from "@/src/components/charactersection";
+import CharacterSection from "@/components/charactersection";
+import Navbar from "@/components/navigation";
+import Footer from "@/components/footer";
 
 export default function CharacterPage() {
     return (

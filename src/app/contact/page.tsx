@@ -1,7 +1,7 @@
+import Navbar from "@/components/navigation";
+import ContactForm from "@/components/contactform";
+import Footer from "@/components/footer";
 
-import ContactForm from "@/src/components/contactform";
-import Navbar from "@/src/components/navigation";
-import Footer from "@/src/components/footer";
 
 export default function ContactPage() {
     return (

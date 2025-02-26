@@ -1,5 +1,5 @@
 import {PropsWithChildren} from "react";
-import Navbar from "@/src/components/navigation";
+import Navbar from "@/components/navigation";
 
 export default  function layout({children}:PropsWithChildren){
     return (

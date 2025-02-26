@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import animes from "@/src/lib/data";
-import Navbar from "@/src/components/navigation";
-import Footer from "@/src/components/footer";
+import Navbar from "@/components/navigation";
+import Footer from "@/components/footer";
+import animes from "@/lib/data";
+
 
 const AnimeDetail = () => {
     const params = useParams();

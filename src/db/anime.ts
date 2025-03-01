@@ -20,3 +20,10 @@ export const episodes = pgTable("episodes", {
     videoUrl: text("video_url").notNull(),
     description: text("description"),
 });
+
+export const users = pgTable("users", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: varchar("name", { length: 255 }).notNull(),
+    email: varchar("email", { length: 255 }).unique().notNull(),
+    password: text("password").notNull(),
+});

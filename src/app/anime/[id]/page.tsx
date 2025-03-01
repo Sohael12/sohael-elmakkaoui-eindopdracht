@@ -1,13 +1,25 @@
 import React from "react";
 import Navbar from "@/components/navigation";
 import Footer from "@/components/footer";
-import { db } from "@/db/client";
-import { animes } from "@/db/anime";
+import { db } from "@/db/client"; // Importeer je Drizzle database client
+import { animes } from "@/db/anime"; // Importeer je animes tabel
+import { eq } from "drizzle-orm"; // Importeer de `eq` functie voor vergelijkingen
 
-export default async function Page() {
-    // Haal anime-data op uit de database
-    const data = await db.select().from(animes);
-    const anime = data[0];
+interface PageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+export default async function Page({ params }: PageProps) {
+    // Wacht op de `params` voordat je ze gebruikt
+    const { id } = await params;
+
+    // Haal de anime op basis van de ID uit de database
+    const [anime] = await db
+        .select()
+        .from(animes)
+        .where(eq(animes.id, id));
 
     // Als de anime niet wordt gevonden, toon een foutmelding
     if (!anime) {
@@ -15,7 +27,9 @@ export default async function Page() {
     }
 
     // Controleer of de video beschikbaar is
-    const videoSrc: string | undefined = anime.fullEpisodeVideo ? anime.fullEpisodeVideo : undefined;
+    const videoSrc: string | undefined = anime.fullEpisodeVideo
+        ? anime.fullEpisodeVideo
+        : undefined;
 
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen">
@@ -36,11 +50,13 @@ export default async function Page() {
                         <video
                             src={videoSrc}
                             className="w-full lg:w-4/3 h-64 object-cover rounded-lg shadow-lg"
-                            poster={anime.image || "/path/to/default/image.png"}  // Standaard fallback image
+                            poster={anime.image || "/path/to/default/image.png"} // Standaard fallback image
                             controls
                         />
                     ) : (
-                        <div className="text-red-500">Video is niet beschikbaar op dit moment.</div>
+                        <div className="text-red-500">
+                            Video is niet beschikbaar op dit moment.
+                        </div>
                     )}
                 </div>
 

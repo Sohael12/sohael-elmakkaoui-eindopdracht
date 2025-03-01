@@ -4,10 +4,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 
+interface Chapter {
+    attributes: {
+        chapter: number;
+        hash: string;
+        data: string[]
+    };
+}
+
 export default function ChapterPage() {
     const params = useParams();
     const mangaId = params.id;
-    const chapterId = params.chapterId;
+
+    const chapterId = Array.isArray(params.chapterId) ? parseInt(params.chapterId[0], 10) : parseInt(params.chapterId || "1", 10);
+
     const [pages, setPages] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -18,17 +28,17 @@ export default function ChapterPage() {
                 // MangaDex API request voor hoofdstuk ID
                 const chapterResponse = await fetch(`https://api.mangadex.org/manga/${mangaId}/feed`);
                 const chapterData = await chapterResponse.json();
-                const selectedChapter = chapterData.data.find((ch) => ch.attributes.chapter === chapterId);
+
+                // Explicitly type the `ch` object to `Chapter`
+                const selectedChapter = chapterData.data.find((ch: Chapter) => ch.attributes.chapter === chapterId);
 
                 if (!selectedChapter) throw new Error("Chapter not found.");
 
                 const chapterHash = selectedChapter.attributes.hash;
                 const chapterPages = selectedChapter.attributes.data;
 
-                // Construct URLs voor pagina's
-                const imageUrls = chapterPages.map(
-                    (file) => `https://uploads.mangadex.org/data/${chapterHash}/${file}`
-                );
+                // Construct URLs for pages (file is a string)
+                const imageUrls = chapterPages.map((file: string) => `https://uploads.mangadex.org/data/${chapterHash}/${file}`);
 
                 setPages(imageUrls);
             } catch (err) {

@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/navigation";
 import Footer from "@/components/footer";
 
-
 interface Manga {
     mal_id: number;
     images: {
@@ -25,11 +24,7 @@ interface Manga {
     score?: number;
 }
 
-interface MangaSectionProps {
-    title: string;
-}
-
-export default function MangaSection({ title }: MangaSectionProps) {
+export default function MangaPage() {
     const [mangaList, setMangaList] = useState<Manga[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
@@ -82,7 +77,7 @@ export default function MangaSection({ title }: MangaSectionProps) {
                     className="container mx-auto px-6 space-y-8"
                 >
                     <div className="text-center space-y-4">
-                        <h2 className="text-4xl font-bold text-yellow-400">{title}</h2>
+                        <h2 className="text-4xl font-bold text-yellow-400">Manga Discover</h2>
                         <p className="text-gray-400 max-w-2xl mx-auto">
                             Browse and discover your favorite manga series. Click on any manga to start reading.
                         </p>

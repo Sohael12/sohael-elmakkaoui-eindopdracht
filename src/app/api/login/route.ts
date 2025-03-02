@@ -23,9 +23,9 @@ export async function POST(request: Request) {
         }
 
         // Maak een sessie-cookie aan
-        const sessionCookie = serialize("session", user[0].id, {
+        const sessionCookie = serialize("session", user[0].id.toString(), {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
+            secure: process.env.NODE_ENV === "production", // Secure flag only in production
             maxAge: 60 * 60 * 24 * 7, // 1 week
             path: "/",
         });
@@ -41,7 +41,19 @@ export async function POST(request: Request) {
         return response;
     } catch (error) {
         console.error("Database Error:", error);
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        return NextResponse.json({ error: "Error logging in", details: errorMessage }, { status: 500 });
+
+        // Controleer of error een Error-object is
+        if (error instanceof Error) {
+            return NextResponse.json(
+                { error: "Error logging in", details: error.message },
+                { status: 500 }
+            );
+        }
+
+        // Als error geen Error-object is, retourneer een algemene foutmelding
+        return NextResponse.json(
+            { error: "Error logging in", details: "An unknown error occurred" },
+            { status: 500 }
+        );
     }
 }

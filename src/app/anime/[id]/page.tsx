@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "@/components/navigation";
 import Footer from "@/components/footer";
-import { db } from "@/db/client"; // Importeer je Drizzle database client
-import { animes } from "@/db/anime"; // Importeer je animes tabel
-import { eq } from "drizzle-orm"; // Importeer de `eq` functie voor vergelijkingen
+import { db } from "@/db/client";
+import { animes } from "@/db/anime";
+import { eq } from "drizzle-orm";
 
 interface PageProps {
     params: Promise<{

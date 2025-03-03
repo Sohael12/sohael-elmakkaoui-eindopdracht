@@ -22,6 +22,9 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Invalid password" }, { status: 401 });
         }
 
+        // Haal de naam van de gebruiker op
+        const userName = user[0].name;
+
         // Maak een sessie-cookie aan
         const sessionCookie = serialize("session", user[0].id.toString(), {
             httpOnly: true,
@@ -30,9 +33,9 @@ export async function POST(request: Request) {
             path: "/",
         });
 
-        // Stuur de cookie mee in de response
+        // Stuur de cookie mee in de response en voeg de naam van de gebruiker toe
         const response = NextResponse.json(
-            { message: "Logged in successfully" },
+            { message: "Logged in successfully", userName },
             { status: 200 }
         );
 

@@ -15,7 +15,7 @@ export default function Navbar() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("/api/auth/me", {
+                const res = await fetch("/api/me", {
                     method: "GET",
                     credentials: "include",
                 })
@@ -37,7 +37,7 @@ export default function Navbar() {
 
     const handleLogout = async () => {
         try {
-            await fetch("/api/auth/logout", {
+            await fetch("/api/logout", {
                 method: "POST",
                 credentials: "include",
             })
@@ -108,16 +108,16 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 0.95}}>
                                     <Link
                                         href="/login"
                                         className="flex items-center text-white hover:text-yellow-400 transition duration-300"
                                     >
-                                        <LogIn className="w-4 h-4 mr-2" />
+                                        <LogIn className="w-4 h-4 mr-2"/>
                                         Login
                                     </Link>
                                 </motion.div>
-                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 0.95}}>
                                     <Link
                                         href="/register"
                                         className="flex items-center bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-lg transition duration-300"

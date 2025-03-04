@@ -21,15 +21,15 @@ export default function RegisterPage() {
     })
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setError("")
+        e.preventDefault();
+        setError("");
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match")
-            return
+            setError("Passwords do not match");
+            return;
         }
 
-        setIsLoading(true)
+        setIsLoading(true);
 
         try {
             const res = await fetch("/api/register", {
@@ -42,21 +42,40 @@ export default function RegisterPage() {
                     email: formData.email,
                     password: formData.password,
                 }),
-            })
+            });
 
-            const data = await res.json()
+            const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(data.error || "Failed to register")
+                throw new Error(data.error || "Failed to register");
             }
 
-            router.push("/login")
+            // Na succesvolle registratie, log in de gebruiker automatisch
+            const loginRes = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            if (!loginRes.ok) {
+                throw new Error("Failed to log in");
+            }
+
+            // Redirect naar de homepage na succesvol inloggen
+            router.push("/");
+
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Failed to register")
+            setError(err instanceof Error ? err.message : "Failed to register");
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-    }
+    };
+
 
     return (
         <>

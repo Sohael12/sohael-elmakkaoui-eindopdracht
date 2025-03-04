@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/navigation";
 import Footer from "@/components/footer";
 import { db } from "@/db/client";
-import { animes } from "@/db/anime";
+import {animes, episodes} from "@/db/anime";
 import { eq } from "drizzle-orm";
 
 interface PageProps {
@@ -25,6 +25,10 @@ export default async function Page({ params }: PageProps) {
     if (!anime) {
         return <div className="text-white text-center py-20">Anime niet gevonden!</div>;
     }
+    const episodesList = await db
+        .select()
+        .from(episodes)
+        .where(eq(episodes.animeId, id));
 
     // Controleer of de video beschikbaar is
     const videoSrc: string | undefined = anime.fullEpisodeVideo
@@ -63,6 +67,34 @@ export default async function Page({ params }: PageProps) {
                 {/* Beschrijving */}
                 <div className="mt-6 bg-gray-900 p-4 rounded-lg">
                     <p className="text-gray-300">{anime.description}</p>
+                </div>
+
+                {/* Afleveringen sectie */}
+                <div className="mt-6 bg-gray-800 p-6 rounded-lg">
+                    <h2 className="text-2xl font-semibold text-white">Afleveringen</h2>
+                    <div className="mt-4">
+                        {episodesList.length === 0 ? (
+                            <p className="text-red-500">Er zijn geen afleveringen beschikbaar voor deze anime.</p>
+                        ) : (
+                            episodesList.map((episode) => (
+                                <div key={episode.id} className="bg-gray-700 p-4 rounded-lg mb-4">
+                                    <h3 className="text-xl font-semibold text-white">{episode.title}</h3>
+                                    <p className="text-gray-400 text-sm">Episode {episode.episodeNumber}</p>
+                                    <p className="text-gray-300 mt-2">{episode.description}</p>
+
+                                    {/* Video voor aflevering */}
+                                    <div className="mt-2">
+                                        <video
+                                            src={episode.videoUrl}
+                                            className="w-full h-48 object-cover rounded-lg shadow-lg"
+                                            poster={anime.image || "/path/to/default/image.png"} // Fallback image voor de aflevering
+                                            controls
+                                        />
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
             <Footer />

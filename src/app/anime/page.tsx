@@ -17,7 +17,7 @@ export default async function AnimePage() {
     return (
         <div className="bg-gray-900 min-h-screen text-white">
             <Navbar />
-            <div className="mt-5">
+            <div className="mt-5 max-w-7xl mx-auto px-6">
                 <AnimeSection title="Populaire Animes" animes={transformedData} />
             </div>
             <Footer />

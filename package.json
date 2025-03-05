@@ -23,6 +23,7 @@
     "@radix-ui/react-separator": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@react-md/card": "^5.1.6",
+    "@react-three/drei": "^10.0.4",
     "@types/bcryptjs": "^2.4.6",
     "@vercel/blob": "^0.27.1",
     "axios": "^1.7.9",

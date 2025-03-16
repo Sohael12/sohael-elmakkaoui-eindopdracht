@@ -28,7 +28,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
             notFound();
         }
 
-        // Fetch the anime this episode belongs to
         const [anime] = await db.select().from(animes).where(eq(animes.id, episode.animeId));
 
         if (!anime) {
@@ -42,7 +41,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
             .where(eq(episodes.animeId, episode.animeId))
             .orderBy(episodes.episodeNumber);
 
-        // Find previous episode
         const [previousEpisode] = await db
             .select()
             .from(episodes)
@@ -52,10 +50,10 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                     lt(episodes.episodeNumber, episode.episodeNumber)
                 )
             )
-            .orderBy(desc(episodes.episodeNumber))  // Corrected descending order
+            .orderBy(desc(episodes.episodeNumber))
             .limit(1);
 
-// Find next episode
+
         const [nextEpisode] = await db
             .select()
             .from(episodes)
@@ -65,7 +63,7 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                     gt(episodes.episodeNumber, episode.episodeNumber)
                 )
             )
-            .orderBy(episodes.episodeNumber)  // Ascending order by default
+            .orderBy(episodes.episodeNumber)
             .limit(1);
 
         return (
@@ -98,7 +96,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                                 </div>
                             </div>
 
-                            {/* Video Player */}
                             <div className="bg-gray-800/80 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl border border-gray-700">
                                 {episode.videoUrl ? (
                                     <VideoPlayer
@@ -120,7 +117,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                                 )}
                             </div>
 
-                            {/* Episode Description */}
                             {episode.description && (
                                 <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700">
                                     <h2 className="text-xl font-bold mb-3">Beschrijving</h2>

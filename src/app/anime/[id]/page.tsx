@@ -1,113 +1,114 @@
-import React from "react";
-import Navbar from "@/components/navigation";
-import Footer from "@/components/footer";
-import { db } from "@/db/client";
-import { animes, episodes } from "@/db/anime";
-import { eq } from "drizzle-orm";
+import Navbar from "@/components/navigation"
+import Footer from "@/components/footer"
+import { db } from "@/db/client"
+import { animes, episodes } from "@/db/anime"
+import { eq } from "drizzle-orm"
+import { Play, Star } from "lucide-react"
+import Link from "next/link"
 
 interface PageProps {
     params: Promise<{
-        id: string;
-    }>;
+        id: string
+    }>
 }
 
 export default async function Page({ params }: PageProps) {
-    const { id } = await params;
+    const { id } = await params
 
     // Fetch the anime details from the database
-    const [anime] = await db
-        .select()
-        .from(animes)
-        .where(eq(animes.id, id));
+    const [anime] = await db.select().from(animes).where(eq(animes.id, id))
 
     // If anime not found
     if (!anime) {
-        return <div className="text-white text-center py-20">Anime niet gevonden!</div>;
+        return (
+            <div className="bg-[#121212] min-h-screen flex items-center justify-center">
+                <div className="text-white text-center py-20 max-w-md mx-auto bg-[#1A1A1A] rounded-lg shadow-xl p-8">
+                    <h2 className="text-2xl font-bold mb-4">Anime niet gevonden!</h2>
+                    <p className="text-gray-400 mb-6">De anime die je zoekt bestaat niet of is verwijderd.</p>
+                    <Link
+                        href="/animes"
+                        className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-md transition-all duration-300"
+                    >
+                        Terug naar alle animes
+                    </Link>
+                </div>
+            </div>
+        )
     }
 
     // Fetch episodes for the anime
-    const episodesList = await db
-        .select()
-        .from(episodes)
-        .where(eq(episodes.animeId, id));
+    const episodesList = await db.select().from(episodes).where(eq(episodes.animeId, id))
 
     // Determine if there's a full episode video for the anime
-    const videoSrc: string | undefined = anime.fullEpisodeVideo || undefined;
+    const videoSrc: string | undefined = anime.fullEpisodeVideo || undefined
 
     return (
         <div className="bg-[#121212] text-white min-h-screen">
             <Navbar />
-
-            <div className="max-w-7xl mx-auto px-6 py-12">
-                {/* Anime Header */}
-                <div className="relative">
-                    <img
-
-                        alt={anime.title}
-                        className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50"
-                    />
-                    <div className="relative z-10">
-                        <h1 className="text-5xl font-bold">{anime.title}</h1>
-                        <p className="mt-4 text-yellow-400 text-lg">
-                            Rating: {anime.rating || "Niet beschikbaar"}
-                        </p>
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+                <div className="relative rounded-xl overflow-hidden mb-10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/70 to-transparent z-10"></div>
+                    {anime.image ? (
+                        <img src={anime.image || "/placeholder.svg"} alt={anime.title} className="w-full h-[300px] sm:h-[400px] object-cover" />
+                    ) : (
+                        <div className="w-full h-[300px] sm:h-[400px] bg-gradient-to-r from-gray-800 to-gray-900"></div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 z-20">
+                        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">{anime.title}</h1>
+                        <div className="flex flex-wrap items-center gap-4 text-sm">
+                            {anime.rating && (
+                                <div className="flex items-center gap-1 bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full">
+                                    <Star className="w-4 h-4" />
+                                    <span>{anime.rating}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
-                {/* Video Player Section */}
-                <div className="mt-6 flex flex-col lg:flex-row gap-6">
-                    {videoSrc ? (
-                        <div className="w-full lg:w-2/3 bg-black rounded-lg overflow-hidden shadow-xl">
-                            <video
-                                src={videoSrc}
-                                className="w-full h-72 object-cover"
-                                poster={anime.image || "/path/to/default/image.png"}
-                                controls
-                            />
-                        </div>
-                    ) : (
-                        <div className="text-red-500">Video is niet beschikbaar op dit moment.</div>
-                    )}
-                </div>
-
-                {/* Anime Description */}
-                <div className="mt-6 bg-[#1A1A1A] p-6 rounded-lg shadow-md">
-                    <p className="text-gray-300">{anime.description}</p>
-                </div>
-
-                {/* Episodes Section */}
-                <div className="mt-6">
-                    <h2 className="text-2xl font-semibold">Afleveringen</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-                        {episodesList.length === 0 ? (
-                            <p className="text-red-500">Er zijn geen afleveringen beschikbaar voor deze anime.</p>
-                        ) : (
-                            episodesList.map((episode) => (
-                                <div
-                                    key={episode.id}
-                                    className="bg-gray-800 p-4 rounded-lg shadow-md transform transition-all hover:scale-105"
-                                >
-                                    <h3 className="text-xl font-semibold">{episode.title}</h3>
-                                    <p className="text-gray-400 text-sm mt-2">Aflevering {episode.episodeNumber}</p>
-                                    <p className="text-gray-300 mt-2">{episode.description}</p>
-
-                                    {/* Video for episode */}
-                                    <div className="mt-4">
-                                        <video
-                                            src={episode.videoUrl}
-                                            className="w-full h-48 object-cover rounded-lg shadow-lg"
-                                            poster={anime.image || "/path/to/default/image.png"}
-                                            controls
-                                        />
-                                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2 space-y-8">
+                        {videoSrc ? (
+                            <div className="bg-[#1A1A1A] rounded-xl overflow-hidden shadow-xl">
+                                <video src={videoSrc} className="w-full h-full object-cover" controls />
+                                <div className="p-4">
+                                    <h2 className="text-xl font-semibold">Bekijk nu: {anime.title}</h2>
                                 </div>
-                            ))
+                            </div>
+                        ) : (
+                            <div className="bg-[#1A1A1A] rounded-xl p-8 text-center">
+                                <div className="w-16 h-16 mx-auto mb-4 bg-red-500/20 flex items-center justify-center">
+                                    <Play className="w-8 h-8 text-red-500" />
+                                </div>
+                                <h3 className="text-xl font-medium mb-2">Video niet beschikbaar</h3>
+                            </div>
                         )}
                     </div>
+                    <div className="lg:col-span-1">
+                        <div className="bg-[#1A1A1A] rounded-xl shadow-md overflow-hidden sticky top-4">
+                            <div className="p-6 border-b border-gray-800">
+                                <h2 className="text-2xl font-semibold">Afleveringen</h2>
+                                <p className="text-gray-400 text-sm mt-1">{episodesList.length} beschikbaar</p>
+                            </div>
+                            <div className="max-h-[600px] overflow-y-auto p-4">
+                                {episodesList.length === 0 ? (
+                                    <p className="text-center py-8 text-red-400">Geen afleveringen beschikbaar</p>
+                                ) : (
+                                    episodesList.map((episode) => (
+                                        <Link key={episode.id} href={`/episodes/${episode.id}`} passHref>
+                                            <div className="bg-[#252525] rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#303030] hover:shadow-lg group cursor-pointer p-4">
+                                                <h3 className="text-lg font-medium group-hover:text-yellow-400 transition-colors">{episode.title}</h3>
+                                                <span className="bg-gray-700 text-xs px-2 py-1 rounded-md">#{episode.episodeNumber}</span>
+                                            </div>
+                                        </Link>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
+            </main>
             <Footer />
         </div>
-    );
+    )
 }

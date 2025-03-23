@@ -65,7 +65,6 @@ export default function Navbar() {
                         </Link>
                     </motion.div>
 
-                    {/* Hamburger Icon for Mobile */}
                     <div className="block lg:hidden">
                         <motion.div
                             whileTap={{ scale: 0.95 }}
@@ -77,7 +76,7 @@ export default function Navbar() {
 
                     {/* Navigation Links for Desktop */}
                     <div className="hidden lg:flex items-center space-x-6">
-                        {[{ name: "Home", href: "/" }, { name: "Anime Series", href: "/anime" }, { name: "Manga", href: "/manga" }, { name: "Characters", href: "/characters" }, { name: "Contact", href: "/contact" }]
+                        {[{ name: "Home", href: "/" }, { name: "Anime Series", href: "/anime" }, { name: "Manga", href: "/manga" }, { name: "Characters", href: "/characters" }, { name: "Contact", href: "/contact" },{ name: "Profile", href: "/profile" }]
                             .map((link, index) => (
                                 <motion.div
                                     key={index}

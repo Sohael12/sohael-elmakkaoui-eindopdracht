@@ -10,7 +10,6 @@ import {Play, Star, Search} from "lucide-react"
 import {AnimeCarousel} from "@/components/animecoursel";
 
 export default async function AllAnimesPage() {
-    // Fetch all animes from the database
     const animesList = await db.select().from(animes)
 
     // Add some sample descriptions for the featured animes

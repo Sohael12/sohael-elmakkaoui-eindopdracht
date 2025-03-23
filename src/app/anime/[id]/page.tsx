@@ -1,46 +1,46 @@
-import Navbar from "@/components/navigation"
-import Footer from "@/components/footer"
-import { db } from "@/db/client"
-import { animes, episodes } from "@/db/anime"
-import { eq } from "drizzle-orm"
-import { Play, Star } from "lucide-react"
-import Link from "next/link"
+import Navbar from "@/components/navigation";
+import Footer from "@/components/footer";
+import { db } from "@/db/client";
+import { animes, episodes } from "@/db/anime";
+import { eq } from "drizzle-orm";
+import { Play, Star } from "lucide-react";
+import Link from "next/link";
 
 interface PageProps {
     params: Promise<{
-        id: string
-    }>
+        id: string;
+    }>;
 }
 
 export default async function Page({ params }: PageProps) {
-    const { id } = await params
+    const { id } = await params;
 
-    // Fetch the anime details from the database
-    const [anime] = await db.select().from(animes).where(eq(animes.id, id))
+    // Fetch anime details from the database
+    const [anime] = await db.select().from(animes).where(eq(animes.id, id));
 
-    // If anime not found
+    // If anime is not found
     if (!anime) {
         return (
             <div className="bg-[#121212] min-h-screen flex items-center justify-center">
                 <div className="text-white text-center py-20 max-w-md mx-auto bg-[#1A1A1A] rounded-lg shadow-xl p-8">
-                    <h2 className="text-2xl font-bold mb-4">Anime niet gevonden!</h2>
-                    <p className="text-gray-400 mb-6">De anime die je zoekt bestaat niet of is verwijderd.</p>
+                    <h2 className="text-2xl font-bold mb-4">Anime not found!</h2>
+                    <p className="text-gray-400 mb-6">The anime you are looking for does not exist or has been removed.</p>
                     <Link
                         href="/animes"
                         className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-md transition-all duration-300"
                     >
-                        Terug naar alle animes
+                        Back to all animes
                     </Link>
                 </div>
             </div>
-        )
+        );
     }
 
     // Fetch episodes for the anime
-    const episodesList = await db.select().from(episodes).where(eq(episodes.animeId, id))
+    const episodesList = await db.select().from(episodes).where(eq(episodes.animeId, id));
 
     // Determine if there's a full episode video for the anime
-    const videoSrc: string | undefined = anime.fullEpisodeVideo || undefined
+    const videoSrc: string | undefined = anime.fullEpisodeVideo || undefined;
 
     return (
         <div className="bg-[#121212] text-white min-h-screen">
@@ -72,7 +72,7 @@ export default async function Page({ params }: PageProps) {
                             <div className="bg-[#1A1A1A] rounded-xl overflow-hidden shadow-xl">
                                 <video src={videoSrc} className="w-full h-full object-cover" controls />
                                 <div className="p-4">
-                                    <h2 className="text-xl font-semibold">Bekijk nu: {anime.title}</h2>
+                                    <h2 className="text-xl font-semibold">Watch now: {anime.title}</h2>
                                 </div>
                             </div>
                         ) : (
@@ -80,19 +80,19 @@ export default async function Page({ params }: PageProps) {
                                 <div className="w-16 h-16 mx-auto mb-4 bg-red-500/20 flex items-center justify-center">
                                     <Play className="w-8 h-8 text-red-500" />
                                 </div>
-                                <h3 className="text-xl font-medium mb-2">Video niet beschikbaar</h3>
+                                <h3 className="text-xl font-medium mb-2">Video not available</h3>
                             </div>
                         )}
                     </div>
                     <div className="lg:col-span-1">
                         <div className="bg-[#1A1A1A] rounded-xl shadow-md overflow-hidden sticky top-4">
                             <div className="p-6 border-b border-gray-800">
-                                <h2 className="text-2xl font-semibold">Afleveringen</h2>
-                                <p className="text-gray-400 text-sm mt-1">{episodesList.length} beschikbaar</p>
+                                <h2 className="text-2xl font-semibold">Episodes</h2>
+                                <p className="text-gray-400 text-sm mt-1">{episodesList.length} available</p>
                             </div>
                             <div className="max-h-[600px] overflow-y-auto p-4">
                                 {episodesList.length === 0 ? (
-                                    <p className="text-center py-8 text-red-400">Geen afleveringen beschikbaar</p>
+                                    <p className="text-center py-8 text-red-400">No episodes available</p>
                                 ) : (
                                     episodesList.map((episode) => (
                                         <Link key={episode.id} href={`/episodes/${episode.id}`} passHref>
@@ -110,5 +110,5 @@ export default async function Page({ params }: PageProps) {
             </main>
             <Footer />
         </div>
-    )
+    );
 }

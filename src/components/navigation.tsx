@@ -50,6 +50,18 @@ export default function Navbar() {
         }
     }
 
+    const navigationLinks = [
+        { name: "Home", href: "/" },
+        { name: "Anime Series", href: "/anime" },
+        { name: "Manga", href: "/manga" },
+        { name: "Characters", href: "/characters" },
+        { name: "Contact", href: "/contact" },
+    ]
+
+    if (isLoggedIn) {
+        navigationLinks.push({ name: "Profile", href: "/profile" })
+    }
+
     return (
         <motion.nav
             initial={{ opacity: 0, y: -50 }}
@@ -76,21 +88,20 @@ export default function Navbar() {
 
                     {/* Navigation Links for Desktop */}
                     <div className="hidden lg:flex items-center space-x-6">
-                        {[{ name: "Home", href: "/" }, { name: "Anime Series", href: "/anime" }, { name: "Manga", href: "/manga" }, { name: "Characters", href: "/characters" }, { name: "Contact", href: "/contact" },{ name: "Profile", href: "/profile" }]
-                            .map((link, index) => (
-                                <motion.div
-                                    key={index}
-                                    whileHover={{ scale: 1.2, rotate: 5 }}
-                                    transition={{ type: "spring", stiffness: 300 }}
+                        {navigationLinks.map((link, index) => (
+                            <motion.div
+                                key={index}
+                                whileHover={{ scale: 1.2, rotate: 5 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <Link
+                                    href={link.href}
+                                    className="text-white text-lg font-semibold hover:text-yellow-400 transition duration-300"
                                 >
-                                    <Link
-                                        href={link.href}
-                                        className="text-white text-lg font-semibold hover:text-yellow-400 transition duration-300"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </motion.div>
-                            ))}
+                                    {link.name}
+                                </Link>
+                            </motion.div>
+                        ))}
                     </div>
 
                     {/* Auth Buttons */}
@@ -138,22 +149,21 @@ export default function Navbar() {
 
             {/* Mobile Menu (Hamburger) */}
             <div className={`lg:hidden ${isMenuOpen ? "block" : "hidden"} bg-gray-800 p-4`}>
-                {[{ name: "Home", href: "/" }, { name: "Anime Series", href: "/anime" }, { name: "Manga", href: "/manga" }, { name: "Characters", href: "/characters" }, { name: "Contact", href: "/contact" }]
-                    .map((link, index) => (
-                        <motion.div
-                            key={index}
-                            whileHover={{ scale: 1.2, rotate: 5 }}
-                            transition={{ type: "spring", stiffness: 300 }}
+                {navigationLinks.map((link, index) => (
+                    <motion.div
+                        key={index}
+                        whileHover={{ scale: 1.2, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                    >
+                        <Link
+                            href={link.href}
+                            className="text-white text-lg font-semibold block py-2 hover:text-yellow-400 transition duration-300"
+                            onClick={() => setIsMenuOpen(false)} // Close menu on link click
                         >
-                            <Link
-                                href={link.href}
-                                className="text-white text-lg font-semibold block py-2 hover:text-yellow-400 transition duration-300"
-                                onClick={() => setIsMenuOpen(false)} // Close menu on link click
-                            >
-                                {link.name}
-                            </Link>
-                        </motion.div>
-                    ))}
+                            {link.name}
+                        </Link>
+                    </motion.div>
+                ))}
                 {isLoggedIn ? (
                     <>
                         <motion.button

@@ -171,7 +171,6 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
                       </SelectTrigger>
                       <SelectContent className="bg-gray-800 border-gray-700">
                         <SelectItem value="all">All Characters</SelectItem>
-                        <SelectItem value="popular">Popular Only</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import Navbar from "@/components/navigation";
 import CharacterSection from "@/components/charactersection";
 import Footer from "@/components/footer";

@@ -5,7 +5,6 @@ import Footer from "@/components/footer";
 import AnimeSection from "@/components/animesection";
 
 export default async function AnimePage() {
-    // Haal anime-data op uit de database
     const data = await db.select().from(animes);
 
     // Transformeer de data om de `rating` naar een number te converteren

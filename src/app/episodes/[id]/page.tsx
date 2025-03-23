@@ -156,7 +156,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                             </div>
                         </div>
 
-                        {/* Sidebar - Episode List */}
                         <div>
                             <div className="bg-gray-800/80 backdrop-blur-md rounded-xl shadow-xl border border-gray-700 sticky top-20">
                                 <div className="p-6 border-b border-gray-700">

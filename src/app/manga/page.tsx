@@ -114,17 +114,16 @@ function MangaPageContent() {
             <div className="bg-gradient-to-b from-[#0F0F0F] to-[#1a1a2e] min-h-screen py-12">
                 <div className="fixed top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
                 <div className="fixed bottom-20 right-10 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
-
                 <motion.section
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    transition={{duration: 0.8}}
-                    className="container mx-auto px-4 sm:px-6 relative z-10"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="container mx-auto px-4 sm:px-6 relative z-10 pt-20"  // Added pt-20 to add padding-top below the navbar
                 >
                     <motion.div
-                        initial={{y: -20, opacity: 0}}
-                        animate={{y: 0, opacity: 1}}
-                        transition={{duration: 0.6}}
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
                         className="text-center space-y-6 mb-12"
                     >
                         <h2 className="text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-200">

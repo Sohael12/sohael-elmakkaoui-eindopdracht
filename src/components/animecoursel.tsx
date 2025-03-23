@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useCallback } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { ChevronLeft, ChevronRight, Play, Star } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, Play, Star } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Anime = {
     description: string;
@@ -17,40 +17,41 @@ type Anime = {
     rating: string | null;
     genre: string | null;
 };
+
 interface AnimeCarouselProps {
-    animes: Anime[]
-    title?: string
+    animes: Anime[];
+    title?: string;
 }
 
-export function AnimeCarousel({ animes, title = "Uitgelichte Animes" }: AnimeCarouselProps) {
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [isHovering, setIsHovering] = useState(false)
+export function AnimeCarousel({ animes, title = "Featured Animes" }: AnimeCarouselProps) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isHovering, setIsHovering] = useState(false);
 
-    const featuredAnimes = animes.slice(0, Math.min(5, animes.length))
+    const featuredAnimes = animes.slice(0, Math.min(5, animes.length));
 
     const nextSlide = useCallback(() => {
         setCurrentIndex((prevIndex) =>
             prevIndex === featuredAnimes.length - 1 ? 0 : prevIndex + 1
-        )
-    }, [featuredAnimes.length])
+        );
+    }, [featuredAnimes.length]);
 
     const prevSlide = useCallback(() => {
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? featuredAnimes.length - 1 : prevIndex - 1
-        )
-    }, [featuredAnimes.length])
+        );
+    }, [featuredAnimes.length]);
 
     useEffect(() => {
         if (!isHovering) {
             const interval = setInterval(() => {
-                nextSlide()
-            }, 5000)
+                nextSlide();
+            }, 5000);
 
-            return () => clearInterval(interval)
+            return () => clearInterval(interval);
         }
-    }, [isHovering, nextSlide])
+    }, [isHovering, nextSlide]);
 
-    if (animes.length === 0) return null
+    if (animes.length === 0) return null;
 
     return (
         <div
@@ -86,7 +87,7 @@ export function AnimeCarousel({ animes, title = "Uitgelichte Animes" }: AnimeCar
                             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20">
                                 <div className="flex items-center space-x-2 mb-3">
                                     <div className="bg-purple-600 text-xs font-medium px-2.5 py-0.5 rounded">
-                                        Uitgelicht
+                                        Featured
                                     </div>
                                     {anime.genre && (
                                         <div className="bg-white/10 text-xs font-medium px-2.5 py-0.5 rounded">
@@ -114,12 +115,12 @@ export function AnimeCarousel({ animes, title = "Uitgelichte Animes" }: AnimeCar
                                 <div className="flex flex-wrap gap-3">
                                     <Link href={`/anime/${anime.id}`}>
                                         <Button className="bg-purple-600 hover:bg-purple-700">
-                                            <Play className="mr-2 h-4 w-4" /> Bekijk nu
+                                            <Play className="mr-2 h-4 w-4" /> Watch now
                                         </Button>
                                     </Link>
                                     <Link href={`/anime/${anime.id}`}>
                                         <Button variant="outline" className="bg-white/10 hover:bg-white/20 border-white/20">
-                                            Meer info
+                                            More info
                                         </Button>
                                     </Link>
                                 </div>
@@ -161,5 +162,5 @@ export function AnimeCarousel({ animes, title = "Uitgelichte Animes" }: AnimeCar
                 </div>
             </div>
         </div>
-    )
+    );
 }

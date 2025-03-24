@@ -118,7 +118,7 @@ function MangaPageContent() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="container mx-auto px-4 sm:px-6 relative z-10 pt-20"  // Added pt-20 to add padding-top below the navbar
+                    className="container mx-auto px-4 sm:px-6 relative z-10 pt-20"
                 >
                     <motion.div
                         initial={{ y: -20, opacity: 0 }}

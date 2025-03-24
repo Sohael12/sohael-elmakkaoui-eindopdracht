@@ -9,7 +9,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Clock } from 'lucide-react';
 import { notFound } from "next/navigation";
-import { desc } from "drizzle-orm";  // Add this import
+import { desc } from "drizzle-orm";
 
 interface EpisodePageProps {
     params: Promise<{
@@ -21,7 +21,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
     const { id } = await params;
 
     try {
-        // Fetch the current episode
         const [episode] = await db.select().from(episodes).where(eq(episodes.id, id));
 
         if (!episode) {
@@ -84,7 +83,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Content - Video Player and Episode Info */}
                         <div className="lg:col-span-2 space-y-6">
-                            {/* Episode Title */}
                             <div>
                                 <h1 className="text-3xl font-bold">{episode.title}</h1>
                                 <div className="flex items-center gap-3 mt-2 text-gray-400">
@@ -124,7 +122,6 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                                 </div>
                             )}
 
-                            {/* Episode Navigation */}
                             <div className="flex justify-between items-center">
                                 {previousEpisode ? (
                                     <Link href={`/episodes/${previousEpisode.id}`}>

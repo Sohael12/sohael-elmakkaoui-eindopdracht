@@ -7,15 +7,15 @@ import Footer from "@/components/footer";
 import animes from "@/lib/data";
 
 const AnimeDetail = () => {
-    const params = useParams(); // Access the URL parameters
-    const [anime, setAnime] = useState<any>(null); // State to store the anime details
+    const params = useParams();
+    const [anime, setAnime] = useState<any>(null);
 
     useEffect(() => {
         const id = params?.id; // Extract anime ID from URL parameters
         if (id) {
-            const animeId = Array.isArray(id) ? id[0] : id; // Ensure `id` is a string, not an array
-            const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10)); // Find anime by ID
-            setAnime(selectedAnime || null); // Update state with anime details or null if not found
+            const animeId = Array.isArray(id) ? id[0] : id; // Ensure `id` is a string,
+            const selectedAnime = animes.find((a) => a.id === Number.parseInt(animeId, 10));
+            setAnime(selectedAnime || null);
         }
     }, [params]);
 

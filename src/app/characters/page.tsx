@@ -8,7 +8,6 @@ import Footer from "@/components/footer";
 export default function CharacterPage() {
     return (
         <div className="bg-[#0F0F0F] text-white min-h-screen">
-            {/* Wrap client-side components with Suspense for async operations */}
             <Suspense fallback={<div>Loading...</div>}>
                 <Navbar />
             </Suspense>

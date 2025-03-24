@@ -158,7 +158,7 @@ export default function Navbar() {
                         <Link
                             href={link.href}
                             className="text-white text-lg font-semibold block py-2 hover:text-yellow-400 transition duration-300"
-                            onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                            onClick={() => setIsMenuOpen(false)}
                         >
                             {link.name}
                         </Link>

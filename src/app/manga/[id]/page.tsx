@@ -1,5 +1,4 @@
 "use client"
-
 import {useEffect, useState} from "react"
 import {useRouter, useParams} from "next/navigation"
 import Image from "next/image"
@@ -162,13 +161,12 @@ export default function MangaDetailPage() {
 
                 <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.6}}>
                     <div className="relative">
-                        {/* Main content */}
+                        {/* Main inforamtie*/}
                         <div
                             className="relative z-10 bg-gray-900/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800">
                             <div
                                 className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 via-purple-500 to-pink-500"></div>
 
-                            {/* Hero section with manga cover and basic info */}
                             <div className="flex flex-col lg:flex-row">
                                 {/* Manga cover with effects */}
                                 <motion.div
@@ -190,7 +188,6 @@ export default function MangaDetailPage() {
                                             />
                                         </div>
 
-                                        {/* Stats badges */}
                                         <motion.div
                                             initial={{y: 20, opacity: 0}}
                                             animate={{y: 0, opacity: 1}}
@@ -226,7 +223,6 @@ export default function MangaDetailPage() {
                                             )}
                                         </motion.div>
 
-                                        {/* Action buttons */}
                                         <motion.div
                                             initial={{y: 20, opacity: 0}}
                                             animate={{y: 0, opacity: 1}}

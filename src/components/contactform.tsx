@@ -265,7 +265,6 @@ export default function ContactForm() {
                         )}
                     </motion.button>
 
-                    {/* Submit Error */}
                     <AnimatePresence>
                         {submitError && (
                             <motion.div

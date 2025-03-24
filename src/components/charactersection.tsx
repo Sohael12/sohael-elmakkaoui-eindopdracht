@@ -125,7 +125,7 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
               </div>
             </motion.div>
 
-            {/* Search and Filter Section */}
+
             <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -187,7 +187,6 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
               </div>
             </motion.div>
 
-            {/* Character Grid */}
             {error ? (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -237,7 +236,6 @@ export default function CharacterSection({ title }: CharacterSectionProps) {
                 </motion.div>
             )}
 
-            {/* Results count */}
             {!isLoading && filteredCharacters.length > 0 && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -266,10 +264,8 @@ function CharacterCard({ character }: { character: Character }) {
       >
         <Link href={`/characters/${character.mal_id}`} className="block h-full">
           <div className="relative group h-full overflow-hidden rounded-xl bg-gray-900/60 backdrop-blur-sm border border-gray-800 shadow-lg transition-all duration-300 hover:shadow-yellow-500/10 hover:border-gray-700">
-            {/* Glow effect on hover */}
             <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/0 via-yellow-500/0 to-yellow-500/0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
 
-            {/* Image container */}
             <div className="relative h-[280px] overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10 opacity-70"></div>
               <Image
@@ -280,7 +276,6 @@ function CharacterCard({ character }: { character: Character }) {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
-              {/* Favorites badge */}
               {character.favorites > 0 && (
                   <div className="absolute top-3 right-3 z-20">
                     <Badge
@@ -293,7 +288,6 @@ function CharacterCard({ character }: { character: Character }) {
               )}
             </div>
 
-            {/* Content */}
             <div className="p-5 space-y-2">
               <h3 className="text-xl font-bold text-white group-hover:text-yellow-400 transition-colors duration-200 line-clamp-1">
                 {character.name}
@@ -301,7 +295,6 @@ function CharacterCard({ character }: { character: Character }) {
 
               {character.name_kanji && <p className="text-sm text-gray-400 font-medium">{character.name_kanji}</p>}
 
-              {/* Nicknames */}
               {character.nicknames && character.nicknames.length > 0 && (
                   <div className="pt-2 flex flex-wrap gap-2">
                     {character.nicknames.slice(0, 2).map((nickname, index) => (
@@ -318,7 +311,6 @@ function CharacterCard({ character }: { character: Character }) {
               )}
             </div>
 
-            {/* View details button that appears on hover */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-5 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
               <div className="text-sm font-medium text-yellow-400 flex items-center justify-center">
                 View Details <Star className="ml-1 w-3 h-3" />

@@ -223,7 +223,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({anime}) => {
                 }
             }}
         >
-            {/* Video or poster image */}
             <video
                 ref={videoRef}
                 src={anime.highlightVideo || undefined}
@@ -234,11 +233,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({anime}) => {
                 loop
             />
 
-            {/* Gradient overlay */}
             <div
                 className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"/>
 
-            {/* No video placeholder */}
             {!anime.highlightVideo && (
                 <div
                     className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/20 to-[#FFA500]/20 flex items-center justify-center">
@@ -248,7 +245,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({anime}) => {
                 </div>
             )}
 
-            {/* Progress bar */}
             {anime.highlightVideo && (
                 <div className="absolute bottom-0 left-0 right-0">
                     <div className="flex items-center px-3 py-1 bg-gradient-to-t from-black/80 to-transparent">
@@ -259,7 +255,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({anime}) => {
                 </div>
             )}
 
-            {/* Hover controls */}
             {isHovered && anime.highlightVideo && (
                 <motion.div
                     initial={{opacity: 0}}
@@ -328,7 +323,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({anime}) => {
                 </motion.div>
             )}
 
-            {/* Genre badge */}
             {anime.genre && (
                 <div className="absolute top-3 left-3 z-10">
                     <Badge

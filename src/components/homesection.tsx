@@ -12,7 +12,6 @@ import { AnimeCarousel } from "@/components/animecoursel";
 export default async function AllAnimesPage() {
     const animesList = await db.select().from(animes);
 
-    // Add some sample descriptions for the featured animes
     const enhancedAnimes = animesList.map((anime) => ({
         ...anime,
         description:
@@ -37,7 +36,6 @@ export default async function AllAnimesPage() {
                         </h2>
                     </div>
 
-                    {/* Main Anime Grid */}
                     <div>
                         {animesList.length > 0 ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
